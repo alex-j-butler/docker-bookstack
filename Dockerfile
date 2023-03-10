@@ -41,12 +41,12 @@ RUN \
   mkdir -p\
     /app/www && \
   if [ -z ${BOOKSTACK_RELEASE+x} ]; then \
-    BOOKSTACK_RELEASE=$(curl -sX GET "https://api.github.com/repos/bookstackapp/bookstack/releases/latest" \
+    BOOKSTACK_RELEASE=$(curl -sX GET "https://api.github.com/repos/alex-j-butler/bookstack/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   curl -o \
     /tmp/bookstack.tar.gz -L \
-    "https://github.com/BookStackApp/BookStack/archive/${BOOKSTACK_RELEASE}.tar.gz" && \
+    "https://github.com/alex-j-butler/BookStack/archive/${BOOKSTACK_RELEASE}.tar.gz" && \
   tar xf \
     /tmp/bookstack.tar.gz -C \
     /app/www/ --strip-components=1 && \
