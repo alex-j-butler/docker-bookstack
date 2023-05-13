@@ -69,9 +69,22 @@ The default username is admin@admin.com with the password of **password**, acces
 This application is dependent on a MySQL database be it one you already have or a new one. If you do not already have one, set up our MariaDB container here https://hub.docker.com/r/linuxserver/mariadb/.
 
 
-If you intend to use this application behind a subfolder reverse proxy, such as our SWAG container or Traefik you will need to make sure that the `APP_URL` environment variable is set to your external domain, or it will not work
+If you intend to use this application behind a subfolder reverse proxy, such as our SWAG container or Traefik you will need to make sure that the `APP_URL` environment variable is set to your external domain, or it will not work.
 
-Documentation for BookStack can be found at https://www.bookstackapp.com/docs/
+Documentation for BookStack can be found at https://www.bookstackapp.com/docs/.
+
+### BookStack File & Directory Paths
+This container ensures certain BookStack application files & folders, such as user file upload folders, are retained within the `/config` folder so that they are persistent & accessible when the `/config` container path is bound as a volume. There may be cases, when following the BookStack documentation, that you'll need to know how these files and folders are used relative to a non-container BookStack installation.
+
+Below is a mapping of container `/config` paths to those relative within a BookStack install directory:
+
+- **/config container path** => **BookStack relative path**
+- `/config/www/.env` => `.env`
+- `/config/www/laravel.log` => `storage/logs/laravel.log`
+- `/config/www/files/` => `storage/uploads/files/`
+- `/config/www/images/` => `storage/uploads/images/`
+- `/config/www/themes/` => `themes/`
+- `/config/www/uploads/` => `public/uploads/`
 
 ### Advanced Users (full control over the .env file)
 If you wish to use the extra functionality of BookStack such as email, Memcache, LDAP and so on you will need to make your own .env file with guidance from the BookStack documentation.
@@ -277,6 +290,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **13.04.23:** - Move ssl.conf include to default.conf.
 * **01.03.23:** - Add php iconv.
 * **19.01.23:** - Rebase to alpine 3.17 with php8.1.
 * **16.01.23:** - Wrap `.env` values in quotes.
